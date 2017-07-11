@@ -1,29 +1,24 @@
-package com.enyciaa.testingrobotpattern
+package com.enyciaa.testingrobotpattern.helpers
 
-import android.content.res.Resources
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
 
 class RecyclerViewMatcher(private val recyclerViewId: Int) {
 
-    fun atPosition(position: Int): Matcher<View> {
+    fun atPosition(position: Int): org.hamcrest.Matcher<View> {
         return atPositionOnView(position, -1)
     }
 
-    fun atPositionOnView(position: Int, targetViewId: Int): Matcher<View> {
-        return object : TypeSafeMatcher<View>() {
-            internal var resources: Resources? = null
-            internal var childView: View? = null
+    fun atPositionOnView(position: Int, targetViewId: Int): org.hamcrest.Matcher<View> {
+        return object : org.hamcrest.TypeSafeMatcher<View>() {
+            internal var resources: android.content.res.Resources? = null
+            internal var childView: android.view.View? = null
 
-            override fun describeTo(description: Description) {
+            override fun describeTo(description: org.hamcrest.Description) {
                 var idDescription = Integer.toString(recyclerViewId)
                 if (this.resources != null) {
                     try {
                         idDescription = this.resources!!.getResourceName(recyclerViewId)
-                    } catch (var4: Resources.NotFoundException) {
+                    } catch (var4: android.content.res.Resources.NotFoundException) {
                         idDescription = String.format("%s (resource name not found)",
                                 *arrayOf<Any>(Integer.valueOf(recyclerViewId)))
                     }
@@ -33,11 +28,11 @@ class RecyclerViewMatcher(private val recyclerViewId: Int) {
                 description.appendText("with id: " + idDescription)
             }
 
-            override fun matchesSafely(view: View): Boolean {
+            override fun matchesSafely(view: android.view.View): Boolean {
                 this.resources = view.getResources()
 
                 if (childView == null) {
-                    val recyclerView = view.getRootView().findViewById<RecyclerView>(recyclerViewId)
+                    val recyclerView = view.getRootView().findViewById<android.support.v7.widget.RecyclerView>(recyclerViewId)
                     if (recyclerView != null && recyclerView!!.getId() === recyclerViewId) {
                         childView = recyclerView!!.findViewHolderForAdapterPosition(position).itemView
                     } else {
@@ -48,7 +43,7 @@ class RecyclerViewMatcher(private val recyclerViewId: Int) {
                 if (targetViewId == -1) {
                     return view === childView
                 } else {
-                    val targetView = childView!!.findViewById<View>(targetViewId)
+                    val targetView = childView!!.findViewById<android.view.View>(targetViewId)
                     return view === targetView
                 }
 
