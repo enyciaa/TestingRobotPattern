@@ -6,15 +6,9 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import com.enyciaa.testingrobotpattern.R
 import com.enyciaa.testingrobotpattern.helpers.withRecyclerView
 
-fun search(func: GifSearchScreenRobot.() -> Unit) = GifSearchScreenRobot().apply { func() }
+class GifSearchResultRobot {
 
-class GifSearchScreenRobot {
-
-    fun phrase(phrase: String) {
-
-    }
-
-    fun gifsDisplayed() {
+    fun isSuccess() {
         onView(withRecyclerView(R.id.listOfGifs).atPosition(0)).check(matches(isDisplayed()))
     }
 }

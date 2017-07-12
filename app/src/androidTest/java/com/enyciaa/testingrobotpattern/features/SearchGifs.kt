@@ -5,16 +5,17 @@ import org.junit.Test
 
 /**
  * As a user
- * I want to get a list of gifs based on the phrase I enter
+ * I want to get a list of gifs based on the phrase I search
  * So I can cry with laughter
  */
 class SearchGifs {
 
     @Test
-    fun whenPhraseSearched_thenDisplayGifs() {
+    fun givenPhraseEntered_whenSearchStarted_thenDisplayGifs() {
         search {
             phrase("Fainting Goats")
-            gifsDisplayed()
+        } gifsDisplayed {
+            isSuccess()
         }
     }
 

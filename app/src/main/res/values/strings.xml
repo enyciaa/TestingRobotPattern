@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TestingRobotPattern</string>
+    <string name="search_gif_hint">Search GIF...</string>
+    <string name="search">Search</string>
 </resources>
